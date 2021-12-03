@@ -64,23 +64,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    addComment: async (parent, { jokeId, commentText }, context) => {
-      if (context.user) {
-        return Joke.findOneAndUpdate(
-          { _id: jokeId },
-          {
-            $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
     removeJoke: async (parent, { jokeId }, context) => {
       if (context.user) {
         const joke = await Joke.findOneAndDelete({
@@ -94,23 +77,6 @@ const resolvers = {
         );
 
         return joke;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    removeComment: async (parent, { jokeId, commentId }, context) => {
-      if (context.user) {
-        return Joke.findOneAndUpdate(
-          { _id: jokeId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
       }
       throw new AuthenticationError('You need to be logged in!');
     },

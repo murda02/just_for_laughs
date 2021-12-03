@@ -7,15 +7,24 @@ const JokeContainer = () => {
 
 useEffect(() => {
     theJoke().then(res => {
-        console.log("res.data", res.data);
+        console.log("res.data.joke", res.data.joke);
+        console.log("res.data.setup", res.data.setup);
+        console.log("res.data.delivery", res.data.delivery);
         setResult(res.data)
     });
   }, []);
 
 
+
   return (
     <div>
-        {result.joke || result.setup}
+        {result.joke}
+        {result.setup}
+        {result.delivery}
+        <br/>
+        <button>Save Joke!</button>
+        <br/>
+        <button>New Joke!</button>
     </div>
   )
 
