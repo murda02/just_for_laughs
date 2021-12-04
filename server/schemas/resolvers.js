@@ -48,17 +48,18 @@ const resolvers = {
 
       return { token, user };
     },
-    saveJoke: async (parent, { jokeText }, context) => {
+    addJoke: async (parent, args, context) => {
+      console.log("***********ADD_JOKE**********");
       if (context.user) {
         const joke = await Joke.create({
-          jokeText,
-          thoughtAuthor: context.user.username,
+          jokeText: args.jokeText,
+          jokeLikedBy: context.user.username,
         });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { jokes: joke._id } }
-        );
+        // await User.findOneAndUpdate(
+        //   { _id: context.user._id },
+        //   { $addToSet: { jokes: joke._id } }
+        // );
 
         return joke;
       }
