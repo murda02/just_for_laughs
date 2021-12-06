@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   const css = `@media (min-width: 375px) {
-    #loginLink { margin-bottom: 6%; }
+    #loginLink { margin-bottom: 8%; }
   }
   @media (min-width: 768px) {
     #loginLink { margin-bottom: 3%; }

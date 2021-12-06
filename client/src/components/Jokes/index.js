@@ -78,26 +78,24 @@ const JokeContainer = () => {
   var jokeStyle = {
     borderStyle: "ridge",
     borderColor: "yellow",
-    display: "inline-flex",
-    padding: "1%"
-
+    display: "inline-flex"
   };
 
   const css =`
   @media (min-width: 375px) {
     label {font-size: 1rem;}
-    button {margin-left: 8%}
-    #jokeDiv {margin: 8%}
+    button {margin-left: 14%}
+    #jokeDiv {margin: 8%; padding: 3%}
   }
   @media (min-width: 768px) {
     label {font-size: 1.2rem}
-    button {margin-left: 5%}
-    #jokeDiv {margin: 5%}
+    button {margin-left: 8%}
+    #jokeDiv {margin: 5%; padding: 2%}
   }
   @media (min-width: 1200px) {
     label {font-size: 1.5rem}
-    button {margin-left: 2%}
-    #jokeDiv {margin: 2%}
+    button {margin-left: 3.5%}
+    #jokeDiv {margin: 2%; padding: 1%}
   }`;
 
   return (
