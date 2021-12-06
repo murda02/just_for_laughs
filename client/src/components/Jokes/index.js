@@ -44,7 +44,7 @@ const JokeContainer = () => {
     display: "flex",
     justifyContent: "left",
     color: "yellow",
-    paddingBottom: "1%"
+    paddingLeft: "2%"
   };
 
   var selectStyle = {
@@ -57,9 +57,7 @@ const JokeContainer = () => {
   var divStyle = {
     marginTop: "2%",
     fontSize: "1.2rem",
-    justifyContent: "center",
-    // paddingBottom: "2%",
-    // paddingLeft: "4%"
+    justifyContent: "center"
   };
 
   var btnNewStyle = {
@@ -81,10 +79,6 @@ const JokeContainer = () => {
     borderStyle: "ridge",
     borderColor: "yellow",
     display: "inline-flex",
-    marginTop: "4%",
-    marginLeft: "2%",
-    marginRight: "5%",
-    marginBottom: "2%",
     padding: "1%"
 
   };
@@ -93,14 +87,17 @@ const JokeContainer = () => {
   @media (min-width: 375px) {
     label {font-size: 1rem;}
     button {margin-left: 8%}
+    #jokeDiv {margin: 8%}
   }
   @media (min-width: 768px) {
     label {font-size: 1.2rem}
     button {margin-left: 5%}
+    #jokeDiv {margin: 5%}
   }
   @media (min-width: 1200px) {
     label {font-size: 1.5rem}
     button {margin-left: 2%}
+    #jokeDiv {margin: 2%}
   }`;
 
   return (
@@ -118,9 +115,10 @@ const JokeContainer = () => {
           <option value="Christmas">Christmas</option>
         </select>
       </label>
-      <div style={jokeStyle}>
+      <div id='jokeDiv' style={jokeStyle}>
       {result.joke}
       {result.setup}
+      <br />
       <br />
       {result.delivery}
       </div>

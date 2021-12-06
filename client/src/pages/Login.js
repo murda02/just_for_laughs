@@ -43,22 +43,23 @@ const Login = (props) => {
   var titleStyle = {
     fontSize: "1.8rem",
     display: "flex",
-    justifyContent: "center",
-    paddingBottom: "2%",
-    color: "yellow"
+    justifyContent: "left",
+    color: "yellow",
+    marginLeft: "2%"
   };
 
   var formStyle = {
     fontSize: "1.1rem",
-    display: "flex",
+    display: "inline-block",
     justifyContent: "center",
-    marginRight: "8px"
+    margin: "8px",
+    marginLeft: "1%"  
   };
 
   var divStyle = {
     fontSize: "1.2rem",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "left",
     paddingBottom: "2%",
     paddingRight: "2%"
   };
@@ -67,7 +68,8 @@ const Login = (props) => {
     fontSize: "1.1rem",
     backgroundColor: "rgb(169, 207, 243)",
     borderRadius: "8px",
-    cursor: 'pointer'
+    cursor: 'pointer',
+    marginTop: "3%"
   };
 
 
@@ -92,7 +94,7 @@ const Login = (props) => {
                   value={formState.email}
                   onChange={handleChange}
                   style={formStyle}
-                /> 
+                /> <div>
                 <input
                   className="form-input"
                   placeholder="Enter your password"
@@ -101,7 +103,7 @@ const Login = (props) => {
                   value={formState.password}
                   onChange={handleChange}
                   style={formStyle}
-                />
+                /> </div>
                 <button
                   className="btn btn-block btn-primary"
                   type="submit"

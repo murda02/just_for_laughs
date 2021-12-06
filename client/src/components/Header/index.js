@@ -13,23 +13,33 @@ const Header = () => {
     fontSize: "3rem",
     display: "flex",
     justifyContent: "left",
-    paddingBottom: "2%",
     color: "yellow",
-    marginLeft: "4%"
+    marginLeft: "2%"
   };
 
   var divStyle = {
     fontSize: "1.2rem",
     display: "flex",
-    justifyContent: "right",
-    paddingBottom: "2%",
-    paddingRight: "2%"
+    justifyContent: "left",
+    marginLeft: "1%",
+    // marginBottom: "1%"
   };
 
   var linkStyle = {
     textDecoration: 'none',
-    color: "yellow"
+    color: "yellow",
   };
+
+  const css = `@media (min-width: 375px) {
+    #loginLink { margin-bottom: 6%; }
+  }
+  @media (min-width: 768px) {
+    #loginLink { margin-bottom: 3%; }
+  }
+  @media (min-width: 1200px) {
+    #loginLink { margin-bottom: 1%; }
+  }`;
+  
 
 
   return (
@@ -38,7 +48,8 @@ const Header = () => {
         <div>
             <h1 style={titleStyle}>Just for Laughs</h1>
         </div>
-        <div style={divStyle}>
+        <style scoped>{css}</style>
+        <div id='loginLink' style={divStyle}>
           {Auth.loggedIn() ? (
             <>
               <Link to="/me" style={linkStyle}>
