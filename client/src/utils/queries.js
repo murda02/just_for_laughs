@@ -6,10 +6,9 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
+      jokes {
         _id
-        thoughtText
-        createdAt
+        jokeText
       }
     }
   }
@@ -41,6 +40,9 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      jokes {
+        jokeText
+      }
     }
   }
 `;

@@ -2,64 +2,21 @@ import React, { useState, useEffect } from 'react';
 import {theJoke} from '../../utils/API'
 import { useMutation } from '@apollo/client';
 import { ADD_JOKE } from '../../utils/mutations';
-import auth from '../../utils/auth'
-
-
 
 const JokeContainer = () => {
   const [result, setResult] = useState({});
-  const [category, setCategory] = useState('Any')
-  const [addJoke, { error, data }] = useMutation(ADD_JOKE);
-
-  var aboutStyle = {
-    fontSize: "1.5rem",
-    color: 'black',
-    display: "block",
-    left: "2%",
-    paddingLeft: '2%',
-    width: '60%',
-    paddingBottom: '2%',
-    textIndent: '50px'
-  };
-
-  var picStyle = {
-
-    display: 'block',
-    paddingBottom: '3%',
-    paddingTop: '1%',
-    paddingLeft: '2%'
-  }
-
-  var textStyle = {
-    paddingLeft: '2%',
-    fontSize: "2rem"
-  }
-
-  const css = `@media (min-width: 320px) {
-    img {
-      width: 70%;
-    }
-  }
-  @media (min-width: 768px) {
-    img {
-      width: 50%;
-    }
-  }
-  @media (min-width: 1200px) {
-    img {
-      width: 25%;
-  }
-  }`;
+  const [category, setCategory] = useState("Any");
+  const [addJoke] = useMutation(ADD_JOKE);
 
   useEffect(() => {
     theJoke(category).then((res) => {
       setResult(res.data);
     });
-  }, []);
+  }, [category]);
 
-  const handleSelect= (e) => {
+  const handleSelect = (e) => {
     setCategory(e.target.value);
-  }
+  };
 
   const newJoke = () => {
     theJoke(category).then((res) => {
@@ -68,46 +25,117 @@ const JokeContainer = () => {
       console.log("res.data.delivery", res.data.delivery);
       setResult(res.data);
     });
-  }
+  };
 
   const saveJoke = async (result) => {
     // addJoke(e)
-    let  fullJoke = ''
+    let fullJoke = "";
     if (result.joke === undefined) {
-      fullJoke = result.setup+result.delivery
+      fullJoke = result.setup + result.delivery;
     } else {
-      fullJoke = result.joke
+      fullJoke = result.joke;
     }
-    console.log('(***********fullJoke************): ', (fullJoke));
     await addJoke({
-      variables: {jokeText: fullJoke}})
+      variables: { jokeText: fullJoke },
+    });
+  };
+
+  var categoryStyle = {
+    display: "flex",
+    justifyContent: "left",
+    color: "yellow",
+    paddingBottom: "1%"
+  };
+
+  var selectStyle = {
+    fontSize: "1.1rem",
+    display: "flex",
+    backgroundColor: "rgb(169, 207, 243)",
+    justifyContent: "center",
+  };
+
+  var divStyle = {
+    marginTop: "2%",
+    fontSize: "1.2rem",
+    justifyContent: "center",
+    // paddingBottom: "2%",
+    // paddingLeft: "4%"
+  };
+
+  var btnNewStyle = {
+    fontSize: "1.1rem",
+    backgroundColor: "rgb(169, 207, 243)",
+    borderRadius: "8px",
+
+  };
+
+  var btnSaveStyle = {
+    marginTop: "8px",
+    fontSize: "1.1rem",
+    backgroundColor: "rgb(169, 207, 243)",
+    borderRadius: "8px",
+
+  };
+
+  var jokeStyle = {
+    borderStyle: "ridge",
+    borderColor: "yellow",
+    display: "inline-flex",
+    marginTop: "4%",
+    marginLeft: "2%",
+    marginRight: "5%",
+    marginBottom: "2%",
+    padding: "1%"
+
+  };
+
+  const css =`
+  @media (min-width: 375px) {
+    label {font-size: 1rem;}
+    button {margin-left: 8%}
   }
+  @media (min-width: 768px) {
+    label {font-size: 1.2rem}
+    button {margin-left: 5%}
+  }
+  @media (min-width: 1200px) {
+    label {font-size: 1.5rem}
+    button {margin-left: 2%}
+  }`;
 
   return (
-    <div>
-      <label>Joke Category:</label>
-        <select id="categoryList" onChange={handleSelect}>
-            <option>Choose </option>
-            <option value='Any'>Any</option>
-            <option value='Misc'>Misc</option>
-            <option value='Programming'>Programming</option>
-            <option value='Pun'>Pun</option>
-            <option value='Halloween'>Halloween</option>
-            <option value='Christmas'>Christmas</option>
-            </select>
-            <br/>
-            <button id="new-joke-btn" onClick={newJoke}>New Joke!</button>
-            <br />
+    <div style={divStyle}>
+      <style scoped>{css}</style>
+      <label style={categoryStyle}>
+        Joke Category:&nbsp;&nbsp;&nbsp;
+        <select id="categoryList" onChange={handleSelect} style={selectStyle}>
+          <option>Choose </option>
+          <option value="Any">Any</option>
+          <option value="Misc">Misc</option>
+          <option value="Programming">Programming</option>
+          <option value="Pun">Pun</option>
+          <option value="Halloween">Halloween</option>
+          <option value="Christmas">Christmas</option>
+        </select>
+      </label>
+      <div style={jokeStyle}>
       {result.joke}
       {result.setup}
-      {result.delivery}
       <br />
-      <button id="save-joke-btn" onClick={() => saveJoke(result)}>Save Joke!</button>
+      {result.delivery}
+      </div>
+      <br />
+      <button style={btnNewStyle} onClick={newJoke}>
+          New Joke!
+        </button>
+      <button style={btnSaveStyle} onClick={() => saveJoke(result)} >
+        Save Joke!
+      </button>
       <br />
       {/* <button>New Joke!</button> */}
     </div>
   );
 };
 
-export default JokeContainer
+export default JokeContainer;
 

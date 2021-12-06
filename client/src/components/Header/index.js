@@ -8,32 +8,55 @@ const Header = () => {
     event.preventDefault();
     Auth.logout();
   };
+
+  var titleStyle = {
+    fontSize: "3rem",
+    display: "flex",
+    justifyContent: "left",
+    paddingBottom: "2%",
+    color: "yellow",
+    marginLeft: "4%"
+  };
+
+  var divStyle = {
+    fontSize: "1.2rem",
+    display: "flex",
+    justifyContent: "right",
+    paddingBottom: "2%",
+    paddingRight: "2%"
+  };
+
+  var linkStyle = {
+    textDecoration: 'none',
+    color: "yellow"
+  };
+
+
   return (
-    <header className="bg-primary text-light mb-4 py-3 flex-row align-center">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
+    <header>
+      <div >
         <div>
-          <Link className="text-light" to="/">
-            <h1 className="m-0">Just for Laughs</h1>
-          </Link>
-          <p className="m-0">Let's get silly!</p>
+            <h1 style={titleStyle}>Just for Laughs</h1>
         </div>
-        <div>
+        <div style={divStyle}>
           {Auth.loggedIn() ? (
             <>
-              <Link className="btn btn-lg btn-info m-2" to="/me">
-                {Auth.getProfile().data.username}'s profile
+              <Link to="/me" style={linkStyle}>
+                {Auth.getProfile().data.username}'s profile&nbsp;|
+                <br/>
               </Link>
-              <button className="btn btn-lg btn-light m-2" onClick={logout}>
-                Logout
-              </button>
+              <Link onClick={logout} style={linkStyle}>
+              &nbsp;Logout
+              </Link>
+              
             </>
           ) : (
             <>
-              <Link className="btn btn-lg btn-info m-2" to="/login">
-                Login
+              <Link to="/login" style={linkStyle}>
+                Login&nbsp;| 
               </Link>
-              <Link className="btn btn-lg btn-light m-2" to="/signup">
-                Signup
+              <Link to="/signup" style={linkStyle}>
+              &nbsp;Signup
               </Link>
             </>
           )}
