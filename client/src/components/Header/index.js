@@ -18,11 +18,8 @@ const Header = () => {
   };
 
   var divStyle = {
-    fontSize: "1.2rem",
     display: "flex",
     justifyContent: "left",
-    marginLeft: "1%",
-    // marginBottom: "1%"
   };
 
   var linkStyle = {
@@ -31,13 +28,13 @@ const Header = () => {
   };
 
   const css = `@media (min-width: 375px) {
-    #loginLink { margin-bottom: 8%; }
+    #navLinks { margin-bottom: 8%; margin-left: 14.7%; font-size: 1.1rem}
   }
   @media (min-width: 768px) {
-    #loginLink { margin-bottom: 3%; }
+    #navLinks { margin-bottom: 3%; margin-left: 7.7%; font-size: 1.2rem}
   }
   @media (min-width: 1200px) {
-    #loginLink { margin-bottom: 1%; }
+    #navLinks { margin-bottom: 1%; margin-left: 3.4%; font-size: 1.3rem}
   }`;
   
 
@@ -49,7 +46,7 @@ const Header = () => {
             <h1 style={titleStyle}>Just for Laughs</h1>
         </div>
         <style scoped>{css}</style>
-        <div id='loginLink' style={divStyle}>
+        <div id='navLinks' style={divStyle}>
           {Auth.loggedIn() ? (
             <>
               <Link to="/me" style={linkStyle}>
@@ -57,7 +54,10 @@ const Header = () => {
                 <br/>
               </Link>
               <Link onClick={logout} style={linkStyle}>
-              &nbsp;Logout
+              &nbsp;Logout&nbsp;|
+              </Link>
+              <Link to="/" style={linkStyle}>
+              &nbsp;Home
               </Link>
               
             </>

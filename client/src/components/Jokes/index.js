@@ -7,7 +7,7 @@ const JokeContainer = () => {
   const [btnColorNew, setBtnColorNew] = useState("rgb(169, 207, 243)");
   const [btnColorSave, setBtnColorSave] = useState("rgb(169, 207, 243)");
   const [clicked, setClicked] = useState(false);
-  const [disable, setDisable] = useState(false);
+  // const [disable, setDisable] = useState(false);
   const [result, setResult] = useState({});
   const [category, setCategory] = useState("Any");
   const [addJoke] = useMutation(ADD_JOKE);
@@ -35,10 +35,11 @@ const JokeContainer = () => {
     // addJoke(e)
     let fullJoke = "";
     if (result.joke === undefined) {
-      fullJoke = result.setup + result.delivery;
+      fullJoke = result.setup + "\n\n" + result.delivery;
     } else {
       fullJoke = result.joke;
     }
+    
     await addJoke({
       variables: { jokeText: fullJoke },
     });
@@ -53,8 +54,7 @@ const JokeContainer = () => {
   var categoryStyle = {
     display: "flex",
     justifyContent: "left",
-    color: "yellow",
-    paddingLeft: "2%"
+    color: "yellow"
   };
 
   var selectStyle = {
@@ -73,23 +73,24 @@ const JokeContainer = () => {
   var jokeStyle = {
     borderStyle: "ridge",
     borderColor: "yellow",
-    display: "inline-flex"
+    display: "inline-flex",
+    color: "yellow"
   };
 
   const css =`
   @media (min-width: 375px) {
-    label {font-size: 1rem;}
-    button {margin-left: 14%}
+    label {font-size: 1rem; padding-left: 14%}
+    button {margin-left: 14.5%}
     #jokeDiv {margin: 8%; padding: 3%}
   }
   @media (min-width: 768px) {
-    label {font-size: 1.2rem}
-    button {margin-left: 8%}
+    label {font-size: 1.2rem; padding-left: 8.5%}
+    button {margin-left: 9.5%}
     #jokeDiv {margin: 5%; padding: 2%}
   }
   @media (min-width: 1200px) {
-    label {font-size: 1.5rem}
-    button {margin-left: 3.5%}
+    label {font-size: 1.5rem; padding-left: 3%}
+    button {margin-left: 4%}
     #jokeDiv {margin: 2%; padding: 1%}
   }`;
 
@@ -120,7 +121,6 @@ const JokeContainer = () => {
           btnColorNew === "rgb(169, 207, 243)" ? setBtnColorNew("yellow") : setBtnColorNew("rgb(169, 207, 243)"); newJoke()
         }}
         style={{ backgroundColor: btnColorNew, fontSize: "1.1rem", borderRadius: "8px" }}>
-      {/* <button style={btnNewStyle} onClick={newJoke}> */}
           New Joke!
         </button>
       <button onClick={() => {
