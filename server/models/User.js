@@ -21,7 +21,8 @@ const userSchema = new Schema({
   },
   jokes: [
     {
-      type: Schema.Types.ObjectId,
+      type: String,
+      // type: Schema.Types.ObjectId,
       ref: 'Joke',
     },
   ],

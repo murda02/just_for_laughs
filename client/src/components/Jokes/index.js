@@ -4,6 +4,10 @@ import { useMutation } from '@apollo/client';
 import { ADD_JOKE } from '../../utils/mutations';
 
 const JokeContainer = () => {
+  const [btnColorNew, setBtnColorNew] = useState("rgb(169, 207, 243)");
+  const [btnColorSave, setBtnColorSave] = useState("rgb(169, 207, 243)");
+  const [clicked, setClicked] = useState(false);
+  const [disable, setDisable] = useState(false);
   const [result, setResult] = useState({});
   const [category, setCategory] = useState("Any");
   const [addJoke] = useMutation(ADD_JOKE);
@@ -40,6 +44,12 @@ const JokeContainer = () => {
     });
   };
 
+  const btnClicked = (e) => {
+    if (!clicked) {
+      setClicked(true)
+    }
+  }
+
   var categoryStyle = {
     display: "flex",
     justifyContent: "left",
@@ -58,21 +68,6 @@ const JokeContainer = () => {
     marginTop: "2%",
     fontSize: "1.2rem",
     justifyContent: "center"
-  };
-
-  var btnNewStyle = {
-    fontSize: "1.1rem",
-    backgroundColor: "rgb(169, 207, 243)",
-    borderRadius: "8px",
-
-  };
-
-  var btnSaveStyle = {
-    marginTop: "8px",
-    fontSize: "1.1rem",
-    backgroundColor: "rgb(169, 207, 243)",
-    borderRadius: "8px",
-
   };
 
   var jokeStyle = {
@@ -121,14 +116,21 @@ const JokeContainer = () => {
       {result.delivery}
       </div>
       <br />
-      <button style={btnNewStyle} onClick={newJoke}>
+      <button onClick={() => {
+          btnColorNew === "rgb(169, 207, 243)" ? setBtnColorNew("yellow") : setBtnColorNew("rgb(169, 207, 243)"); newJoke()
+        }}
+        style={{ backgroundColor: btnColorNew, fontSize: "1.1rem", borderRadius: "8px" }}>
+      {/* <button style={btnNewStyle} onClick={newJoke}> */}
           New Joke!
         </button>
-      <button style={btnSaveStyle} onClick={() => saveJoke(result)} >
+      <button onClick={() => {
+          btnColorSave === "rgb(169, 207, 243)" ? setBtnColorSave("yellow") : setBtnColorSave("rgb(169, 207, 243)"); 
+          saveJoke(result); 
+          btnClicked();
+        }}
+        style={{ backgroundColor: btnColorSave, fontSize: "1.1rem", borderRadius: "8px" }}>
         Save Joke!
       </button>
-      <br />
-      {/* <button>New Joke!</button> */}
     </div>
   );
 };
