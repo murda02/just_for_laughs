@@ -7,7 +7,7 @@ import Auth from "../../utils/auth";
 const JokeContainer = () => {
   const [btnColorNew, setBtnColorNew] = useState("rgb(169, 207, 243)");
   const [btnColorSave, setBtnColorSave] = useState("rgb(169, 207, 243)");
-  const [modalBtn, setModalBtn] = useState("none")
+  // const [modalBtn, setModalBtn] = useState("none")
   const [clicked, setClicked] = useState(false);
   // const [disable, setDisable] = useState(false);
   const [result, setResult] = useState({});

@@ -33,19 +33,21 @@ const Profile = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+  var hStyle = {
+    color: "yellow",
+    marginLeft: "4%"
+  };
 
   if (!user?.username) {
     return (
-      <h4>
+      <h4 style={hStyle}>
         You need to be logged in to see this. Use the navigation links above to
         sign up or log in!
       </h4>
     );
   }
 
-  var h2Style = {
-    color: "yellow",
-  };
+
 
   var savedJokesStyle = {
     color: "yellow",
@@ -58,6 +60,7 @@ const Profile = () => {
 
   const css = `@media (min-width: 375px) {
     h2 {font-size: 1.3rem; padding-left: 13%}
+    h4 {font-size: 1.9rem; padding-left: 13%}
     li {font-size: 1.1rem; margin: 6%}
     #savedJokes {margin: 5%}
   }
@@ -76,7 +79,7 @@ const Profile = () => {
     <div>
       <div className="flex-row justify-center mb-3">
         <style scoped>{css}</style>
-        <h2 style={h2Style}>
+        <h2 style={hStyle}>
           {user.username}, here are your jokes:
           <br />
         </h2>
