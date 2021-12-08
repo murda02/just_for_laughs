@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import {theJoke} from '../../utils/API'
-import { useMutation } from '@apollo/client';
-import { ADD_JOKE } from '../../utils/mutations';
+import React, { useState, useEffect } from "react";
+import { theJoke } from "../../utils/API";
+import { useMutation } from "@apollo/client";
+import { ADD_JOKE } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const JokeContainer = () => {
   const [btnColorNew, setBtnColorNew] = useState("rgb(169, 207, 243)");
   const [btnColorSave, setBtnColorSave] = useState("rgb(169, 207, 243)");
+  const [modalBtn, setModalBtn] = useState("none")
   const [clicked, setClicked] = useState(false);
   // const [disable, setDisable] = useState(false);
   const [result, setResult] = useState({});
@@ -39,22 +41,27 @@ const JokeContainer = () => {
     } else {
       fullJoke = result.joke;
     }
-    
+//if logged in add joke
+//else please log in message
+    if (Auth.loggedIn()) {
     await addJoke({
       variables: { jokeText: fullJoke },
-    });
+    });}
+    else {
+      alert('To save, please signup or login. Thanks!')
+    }
   };
 
   const btnClicked = (e) => {
     if (!clicked) {
-      setClicked(true)
+      setClicked(true);
     }
-  }
+  };
 
   var categoryStyle = {
     display: "flex",
     justifyContent: "left",
-    color: "yellow"
+    color: "yellow",
   };
 
   var selectStyle = {
@@ -67,17 +74,28 @@ const JokeContainer = () => {
   var divStyle = {
     marginTop: "2%",
     fontSize: "1.2rem",
-    justifyContent: "center"
+    justifyContent: "center",
   };
 
   var jokeStyle = {
     borderStyle: "ridge",
     borderColor: "yellow",
     display: "inline-flex",
-    color: "yellow"
+    color: "yellow",
   };
 
-  const css =`
+  // var modalStyle1 = {
+  //   display: "block",
+  //   color: "#bf1010",
+  //   position: "fixed",
+  //   top: "4%",
+  //   marginLeft: "14%",
+  //   padding: "0% 5% 5% 5%",
+  //   border: "solid",
+  //   backgroundColor: "rgb(255 255 255)"
+  // };
+
+  const css = `
   @media (min-width: 375px) {
     label {font-size: 1rem; padding-left: 14%}
     button {margin-left: 14.5%}
@@ -109,31 +127,52 @@ const JokeContainer = () => {
           <option value="Christmas">Christmas</option>
         </select>
       </label>
-      <div id='jokeDiv' style={jokeStyle}>
-      {result.joke}
-      {result.setup}
-      <br />
-      <br />
-      {result.delivery}
+      <div id="jokeDiv" style={jokeStyle}>
+        {result.joke}
+        {result.setup}
+        <br />
+        <br />
+        {result.delivery}
       </div>
       <br />
-      <button onClick={() => {
-          btnColorNew === "rgb(169, 207, 243)" ? setBtnColorNew("yellow") : setBtnColorNew("rgb(169, 207, 243)"); newJoke()
+      <button
+        onClick={() => {
+          btnColorNew === "rgb(169, 207, 243)"
+            ? setBtnColorNew("yellow")
+            : setBtnColorNew("rgb(169, 207, 243)");
+          newJoke();
         }}
-        style={{ backgroundColor: btnColorNew, fontSize: "1.1rem", borderRadius: "8px" }}>
-          New Joke!
-        </button>
-      <button onClick={() => {
-          btnColorSave === "rgb(169, 207, 243)" ? setBtnColorSave("yellow") : setBtnColorSave("rgb(169, 207, 243)"); 
-          saveJoke(result); 
+        style={{
+          backgroundColor: btnColorNew,
+          fontSize: "1.1rem",
+          borderRadius: "8px",
+        }}
+      >
+        New Joke!
+      </button>
+      <button
+        onClick={() => {
+          btnColorSave === "rgb(169, 207, 243)"
+            ? setBtnColorSave("yellow")
+            : setBtnColorSave("rgb(169, 207, 243)");
+          saveJoke(result);
           btnClicked();
         }}
-        style={{ backgroundColor: btnColorSave, fontSize: "1.1rem", borderRadius: "8px" }}>
+        style={{
+          backgroundColor: btnColorSave,
+          fontSize: "1.1rem",
+          borderRadius: "8px",
+        }}
+      >
         Save Joke!
       </button>
+      {/* <div className="modal" style={modalStyle1}>
+            <h2>To save</h2>
+            <p>Please signup or login!</p>
+            <button id='close-btn' onClick={() =>{ modalBtn = "none" } } >Close</button>
+        </div> */}
     </div>
   );
 };
 
 export default JokeContainer;
-

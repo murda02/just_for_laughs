@@ -33,3 +33,10 @@ export const ADD_JOKE = gql`
   }
 `;
 
+export const REMOVE_JOKE = gql`
+mutation removeJoke($jokeId: ID!) {
+  removeJoke(jokeId: $jokeId){
+    _id
+  }
+}
+`;

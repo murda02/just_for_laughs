@@ -1,20 +1,28 @@
-import React from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import React, { useState } from "react";
+import { Redirect, useParams } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { REMOVE_JOKE } from "../utils/mutations";
 
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { QUERY_USER, QUERY_ME } from "../utils/queries";
 
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 const Profile = () => {
-
+  const [removeJoke] = useMutation(REMOVE_JOKE);
+  const [btnColorSave, setBtnColorSave] = useState("rgb(169, 207, 243)");
   const { username: userParam } = useParams();
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
 
-  
+  const deleteJoke = async (result) => {
+    console.log(result);
+    await removeJoke({
+      variables: { jokeId: result },
+    });
+  };
 
   const user = data?.me || data?.user || {};
   // redirect to personal profile page if username is yours
@@ -45,7 +53,7 @@ const Profile = () => {
     borderStyle: "ridge",
     borderColor: "yellow",
     padding: "1%",
-    display: "inline-flex"
+    display: "inline-flex",
   };
 
   const css = `@media (min-width: 375px) {
@@ -67,13 +75,35 @@ const Profile = () => {
   return (
     <div>
       <div className="flex-row justify-center mb-3">
-      <style scoped>{css}</style>
+        <style scoped>{css}</style>
         <h2 style={h2Style}>
           {user.username}, here are your jokes:
           <br />
         </h2>
         <div>
-          {data.jokes.map(d => (<div id='savedJokes' key={d.joke} style={savedJokesStyle}>{d.jokeText}</div>))}
+          {data.jokes.map((d) => (
+            <div id="savedJokes" key={d.joke} style={savedJokesStyle}>
+              {d.jokeText}
+
+              <button
+                onClick={() => {
+                  btnColorSave === "rgb(169, 207, 243)"
+                    ? setBtnColorSave("yellow")
+                    : setBtnColorSave("rgb(169, 207, 243)");
+                  deleteJoke(d._id);
+                  window.location.reload();
+                }}
+                style={{
+                  backgroundColor: btnColorSave,
+                  fontSize: "1.1rem",
+                  borderRadius: "8px",
+                  margin: "5px"
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>

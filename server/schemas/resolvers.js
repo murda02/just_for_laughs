@@ -49,7 +49,6 @@ const resolvers = {
       return { token, user };
     },
     addJoke: async (parent, args, context) => {
-      console.log("***********ADD_JOKE**********");
       if (context.user) {
         const joke = await Joke.create({
           jokeText: args.jokeText,
@@ -66,6 +65,7 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
     removeJoke: async (parent, { jokeId }, context) => {
+      console.log(jokeId)
       if (context.user) {
         const joke = await Joke.findOneAndDelete({
           _id: jokeId,

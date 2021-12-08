@@ -53,7 +53,7 @@ const Header = () => {
                 {Auth.getProfile().data.username}'s profile&nbsp;|
                 <br/>
               </Link>
-              <Link onClick={logout} style={linkStyle}>
+              <Link to="/" onClick={logout} style={linkStyle}>
               &nbsp;Logout&nbsp;|
               </Link>
               <Link to="/" style={linkStyle}>
@@ -67,7 +67,10 @@ const Header = () => {
                 Login&nbsp;| 
               </Link>
               <Link to="/signup" style={linkStyle}>
-              &nbsp;Signup
+              &nbsp;Signup&nbsp;|
+              </Link>
+              <Link to="/" style={linkStyle}>
+              &nbsp;Home
               </Link>
             </>
           )}
