@@ -34,7 +34,7 @@ const Profile = () => {
   }
   var hStyle = {
     color: "yellow",
-    marginLeft: "4%"
+    marginLeft: "1%"
   };
 
   if (!user?.username) {
