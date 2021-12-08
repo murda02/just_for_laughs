@@ -9,7 +9,6 @@ const JokeContainer = () => {
   const [btnColorSave, setBtnColorSave] = useState("rgb(169, 207, 243)");
   // const [modalBtn, setModalBtn] = useState("none")
   const [clicked, setClicked] = useState(false);
-  // const [disable, setDisable] = useState(false);
   const [result, setResult] = useState({});
   const [category, setCategory] = useState("Any");
   const [addJoke] = useMutation(ADD_JOKE);
@@ -26,9 +25,6 @@ const JokeContainer = () => {
 
   const newJoke = () => {
     theJoke(category).then((res) => {
-      console.log("res.data.joke", res.data.joke);
-      console.log("res.data.setup", res.data.setup);
-      console.log("res.data.delivery", res.data.delivery);
       setResult(res.data);
     });
   };

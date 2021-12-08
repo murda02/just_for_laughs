@@ -65,7 +65,6 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
     removeJoke: async (parent, { jokeId }, context) => {
-      console.log(jokeId)
       if (context.user) {
         const joke = await Joke.findOneAndDelete({
           _id: jokeId,

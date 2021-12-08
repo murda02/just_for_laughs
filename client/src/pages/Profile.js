@@ -18,7 +18,6 @@ const Profile = () => {
   });
 
   const deleteJoke = async (result) => {
-    console.log(result);
     await removeJoke({
       variables: { jokeId: result },
     });
@@ -46,8 +45,6 @@ const Profile = () => {
       </h4>
     );
   }
-
-
 
   var savedJokesStyle = {
     color: "yellow",
@@ -85,7 +82,7 @@ const Profile = () => {
         </h2>
         <div>
           {data.jokes.map((d) => (
-            <div id="savedJokes" key={d.joke} style={savedJokesStyle}>
+            <div id="savedJokes" key={d._id} style={savedJokesStyle}>
               {d.jokeText}
 
               <button
